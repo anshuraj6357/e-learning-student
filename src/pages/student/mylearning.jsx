@@ -1,5 +1,5 @@
 import React from 'react';
-import { NewSkeleton } from '@/pages/structure/skeleton'
+
 import { CourseCard } from '@/pages/structure/courseskeleton'
 
 
@@ -13,7 +13,7 @@ export function MyLearning() {
             <div>
                 {
                     isloadings ?
-                        <NewSkeleton /> :
+                      <p> page is loading..</p>:
                         mylearningcourses.length == 0 ?
                             (
                                 <p> you are not enrolled in any of the courses</p>
