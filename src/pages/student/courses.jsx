@@ -1,5 +1,5 @@
 import { CourseCard } from '@/pages/structure/courseskeleton';
-import { NewSkeleton } from '@/pages/structure/skeleton';
+
 import { useGetCoursesQuery,useAllpublishedcoursesQuery  } from '@/features/api/courseapi';
 
 
@@ -32,7 +32,7 @@ if(publishedloading) <p> course detail loading</p>
 
       <div className="w-full max-w-6xl">
         {isLoading ? (
-          <NewSkeleton />
+         <h1>loading</h1>
         ) : (
           <div className="grid grid-cols-3 gap-6">
             {publisheddata && publisheddata?.published?.length > 0 ? (
