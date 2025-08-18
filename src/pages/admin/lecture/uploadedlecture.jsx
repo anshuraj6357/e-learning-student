@@ -1,7 +1,7 @@
 import React from 'react';
 import { Edit } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Switch } from "./components/Switch";
+import { Switch } from "@/components/ui/Switch";
 
 export function Lectures({ lecture, courseId, index }) {
     const navigate = useNavigate();
