@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CourseCard } from '@/pages/structure/courseskeleton'
+import { CourseCard } from '@/pages/structure/coursecard'
 
 
 

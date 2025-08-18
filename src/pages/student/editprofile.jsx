@@ -1,5 +1,5 @@
 
-import { CourseCard } from '@/pages/structure/courseskeleton';
+import { CourseCard } from '@/pages/structure/coursecard';
 import React, { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";

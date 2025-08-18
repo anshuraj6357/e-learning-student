@@ -1,4 +1,4 @@
-import { CourseCard } from '@/pages/structure/courseskeleton';
+import { CourseCard } from '@/pages/structure/coursecard';
 
 import { useGetCoursesQuery,useAllpublishedcoursesQuery  } from '@/features/api/courseapi';
 
