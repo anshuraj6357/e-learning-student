@@ -16,21 +16,27 @@ const purchaseApi = createApi({
                 body: { courseId } // send as object
             })
         }),
-        Getallpurchasedcourse:builder.query({
-            query:()=>({
-                url:'getallpurchasedcourse',
+        Getallpurchasedcourse: builder.query({
+            query: () => ({
+                url: 'getallpurchasedcourse',
             })
         }),
-        Checkcoursestatus:builder.query({
-            query:(courseId)=>({
-                url:`purchasedcoursedetail/${courseId}`,
+        Checkcoursestatus: builder.query({
+            query: (courseId) => ({
+                url: `purchasedcoursedetail/${courseId}`,
             }),
+        }),
+        FetchAllsoldedcourses: builder.query({
+            query: () => ({
+                url: '/coursesold/data',
+            })
+        })
     })
-})
 })
 
 export const {
     useCreateCheckOutSessionMutation,
+    useFetchAllsoldedcoursesQuery,
     useGetallpurchasedcourseQuery,
     useCheckcoursestatusQuery
 } = purchaseApi;

@@ -16,9 +16,9 @@ const courseApi = createApi({
                 body: ({ CourseTitle, Category }),
             })
         }),
-        coursecreatordetail:builder.query({
-            query:(userId)=>({
-                url:`coursecreatordetail/${userId}`
+        coursecreatordetail: builder.query({
+            query: (userId) => ({
+                url: `coursecreatordetail/${userId}`
             })
         }),
         getCourses: builder.query({
@@ -58,51 +58,58 @@ const courseApi = createApi({
             })
         }),
         EditcourseLecture: builder.mutation({
-            query: ({ isPreview,lectureTitle, videoinfo, courseId, lectureId }) => ({
+            query: ({ isPreview, lectureTitle, videoinfo, courseId, lectureId }) => ({
                 url: `/admin/course/${courseId}/lecture/${lectureId}`,
                 method: 'post',
-                body: { isPreview,lectureTitle, videoinfo },
+                body: { isPreview, lectureTitle, videoinfo },
             })
         }),
-        Getcourselecture:builder.query({
-            query:(lectureId)=>({
-                url:`/course/${lectureId}`
+        Getcourselecture: builder.query({
+            query: (lectureId) => ({
+                url: `/course/${lectureId}`
             })
         }),
-        Publishchange:builder.mutation({
-            query:({courseId,query})=>({
-                url:`/admin/course/${courseId}?publish=${query}`,
-                method:'PATCH'
+        Publishchange: builder.mutation({
+            query: ({ courseId, query }) => ({
+                url: `/admin/course/${courseId}?publish=${query}`,
+                method: 'PATCH'
             })
         }),
-        CourseProgress:builder.mutation({
-            query:({courseId,lectureId})=>({
-                url:`/courseprogress/${courseId}/${lectureId}`,
-                method:'POST',
-                 body: { courseId, lectureId },
+        CourseProgress: builder.mutation({
+            query: ({ courseId, lectureId }) => ({
+                url: `/courseprogress/${courseId}/${lectureId}`,
+                method: 'POST',
+                body: { courseId, lectureId },
             })
         }),
-        getallpurchasedourse:builder.query({
-            query:()=>({
-                url:'/getallpurchasedcourse'
+        getallpurchasedourse: builder.query({
+            query: () => ({
+                url: '/getallpurchasedcourse'
             })
         }),
-        Getcp:builder.query({
-            query:(courseId)=>({
-                url:`courseprogress/${courseId}`
+        Getcp: builder.query({
+            query: (courseId) => ({
+                url: `courseprogress/${courseId}`
             })
         }),
-        DeleteCourses:builder.mutation({
-            query:(courseId)=>({
-                url:`deletecourse/${courseId}`,
-                method:'DELETE'
+        DeleteCourses: builder.mutation({
+            query: (courseId) => ({
+                url: `deletecourse/${courseId}`,
+                method: 'DELETE'
+            })
+        }),
+        Allpublishedcourses: builder.query({
+            query: () => ({
+                url: `/allpublished/courses`
             })
         })
     }),
+
 });
 
 export const { useCreateCourseMutation,
     useDeleteCoursesMutation,
+    useAllpublishedcoursesQuery,
     useGetcpQuery,
     useCourseProgressMutation,
     usePublishchangeMutation,

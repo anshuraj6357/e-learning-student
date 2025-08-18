@@ -20,15 +20,20 @@ export function Addlectures() {
     const { courseId } = useParams();
     const { data: loadlecturedata, isLoading: lectureloading, refetch } = useGetAlllecturesQuery(courseId);
     const [CreateLecture, { data: uploadlectures, isLoading, isSuccess, error }] = useCreateLectureMutation();
-    console.log("loadlecturedata", loadlecturedata);
+    const changeHandler = async (e) => {
+        e.preventDefault();
+        console.log("Lecture Title:", lectureTitle);
+        CreateLecture({ formdata: { lectureTitle }, courseId });
+
+    };
 
 
 
 
 
-    useEffect(() => {
-        refetch();
-    }, [])
+   
+
+
 
     useEffect(() => {
 
@@ -40,15 +45,20 @@ export function Addlectures() {
             toast.error(uploadlectures?.message || 'failed to uload');
         }
 
-    }, [isSuccess, error])
+    }, [isSuccess, error,refetch])
 
 
-    const changeHandler = async (e) => {
-        e.preventDefault();
-        console.log("Lecture Title:", lectureTitle);
-        CreateLecture({ formdata: { lectureTitle }, courseId });
 
-    };
+
+
+
+
+
+
+     
+    console.log("loadlecturedata", loadlecturedata);
+
+
 
 
     return (

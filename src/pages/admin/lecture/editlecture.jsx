@@ -31,36 +31,41 @@ export function Editlecture() {
 
 
     const { courseId, lectureId } = useParams();
-    const { data: dataGetcourselecture,refetch } = useGetcourselectureQuery(lectureId)
+    const { data: dataGetcourselecture, refetch } = useGetcourselectureQuery(lectureId)
     const [Removelecture, { isSuccess, error }] = useRemovelectureMutation();
-    const [EditcourseLecture, { isLoading,isSuccess:uploadsuccess }] = useEditcourseLectureMutation();
+    const [EditcourseLecture, { isLoading, isSuccess: uploadsuccess }] = useEditcourseLectureMutation();
     const [lectureTitle, setLectureTitle] = useState("");
     const [videoinfo, setVideoFile] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [mediaProgress, setMediaProgress] = useState(false);
     const [isPreview, setisPreview] = useState(false)
-    console.log("dataGetcourselecture", dataGetcourselecture)
+    const [uploadvideo, setuploadvideo] = useState(false)
 
     const setisPreviewchecker = () => {
         setisPreview((prev) => !prev);
-        console.log(isPreview);
+
     };
-    console.log(isPreview);
+
 
     const changeRemoveleecture = (e) => {
         e.preventDefault();
-        console.log(lectureId)
-        console.log("trigger 1")
+
         Removelecture(lectureId);
     }
 
 
-    useEffect(()=>{
-        if(uploadsuccess){
-              toast.success('uploaded Succes')
-             refetch()
+    useEffect(() => {
+        if (uploadsuccess) {
+            toast.success('uploaded Succes')
+            refetch()
         }
-       },[refetch,uploadsuccess])
+        if(uploadvideo){
+            alert('please wait video is uploading')
+        }
+        if (error) {
+            toast.failed('error  kya hai?')
+        }
+    }, [refetch, uploadsuccess, error,uploadvideo])
     useEffect(() => {
         if (isSuccess) {
             console.log("trigger 2")
@@ -69,7 +74,7 @@ export function Editlecture() {
         }
     }, [isSuccess])
 
-    // Handle file selection and upload
+
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -77,7 +82,7 @@ export function Editlecture() {
 
         const formData = new FormData();
         formData.append("file", file);
-
+        setuploadvideo(true);
         setMediaProgress(true);
 
         try {
@@ -91,15 +96,16 @@ export function Editlecture() {
                     setUploadProgress(Math.round((loaded * 100) / total));
                 },
             });
-            console.log(res)
+     
             if (res?.data?.success) {
                 setVideoFile(res.data.uploadedfile);
                 toast.success(res?.data?.message);
+                setuploadvideo(false);
                 setMediaProgress(false);
                 setUploadProgress(0);
             }
         } catch (error) {
-            console.error("Video upload failed:", error);
+
             toast.error("Video upload failed");
             setMediaProgress(false);
             setUploadProgress(0);
@@ -108,12 +114,10 @@ export function Editlecture() {
 
     const changeHandler = (e) => {
         e.preventDefault();
-        console.log("Lecture Title:", lectureTitle);
-        console.log("Selected Video File:", videoinfo);
-        console.log("Is Free:", isPreview);
+    
         EditcourseLecture({ isPreview, lectureTitle, videoinfo, courseId, lectureId })
     };
-    console.log("ata ", dataGetcourselecture?.lecture)
+ 
     return (
         <div className="max-w-3xl mx-auto my-10">
             <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">

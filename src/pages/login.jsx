@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import {useEffect} from "react"
+import { useEffect } from "react"
 import { toast } from 'react-hot-toast'
 import {
   Select,
-  SelectTrigger,SelectValue,SelectContent,SelectItem,
+  SelectTrigger, SelectValue, SelectContent, SelectItem,
 } from '@/components/ui/select'
 import { useNavigate } from "react-router-dom";
 import {
@@ -25,10 +25,10 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import {useLoginUserMutation,useRegisterUserMutation} from "@/features/api/authapi";
+import { useLoginUserMutation, useRegisterUserMutation } from "@/features/api/authapi";
 export function Login() {
-const navigate=useNavigate()
- 
+  const navigate = useNavigate()
+
   const [formdata, setformdata] = useState({
     email: "",
     password: "",
@@ -39,13 +39,13 @@ const navigate=useNavigate()
     email: "",
     password: "",
     phonenumber: "",
-    Role:"",
+    Role: "",
   });
 
-      const getselectedValue = (value) => {
-    setcreateformdata((prev)=>({
+  const getselectedValue = (value) => {
+    setcreateformdata((prev) => ({
       ...prev,
-      Role:value,
+      Role: value,
     }))
   }
 
@@ -65,29 +65,32 @@ const navigate=useNavigate()
       [name]: value,
     });
   };
-  const [loginUser, { isLoading:loginloading, isSuccess, error }] = useLoginUserMutation();
-  const [registerUser,{isLoading:registerloading,isSuccess:registersuccess}]=useRegisterUserMutation();
-const handleLoginSubmit = async () => {
-  try {
-     await loginUser(formdata).unwrap(); 
-     window.location.href = "/";
+  const [loginUser, { isLoading: loginloading, isSuccess, error }] = useLoginUserMutation();
+  const [registerUser, { isLoading: registerloading, isSuccess: registersuccess }] = useRegisterUserMutation();
+  const handleLoginSubmit = async () => {
+    try {
+      await loginUser(formdata).unwrap();
+      window.location.href = "/";
 
-  } catch (error) {
-    console.error("Login failed:", error?.data?.message || err);
-  }
-};
+    } catch (error) {
+      console.error("Login failed:", error?.data?.message || err);
+    }
+  };
 
-useEffect(()=>{
-  if(isSuccess){
-    toast.success("login successful");
-    navigate('/');
-  }
-  if(registersuccess){
-     toast.success("register successful");
-    navigate('/');
-  }
-},[isSuccess])
-  
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("login successful");
+      navigate('/');
+    }
+    else if (error) {
+      toast.error(error?.data?.message || "Login failed");
+    }
+    if (registersuccess) {
+      toast.success("register successful");
+      navigate('/');
+    }
+  }, [isSuccess, registersuccess, error])
+
 
 
 
@@ -95,10 +98,9 @@ useEffect(()=>{
     console.log("Signup Form submitted:", createformdata);
     try {
       
+
       registerUser(createformdata).unwrap();
 
-
-     
     } catch (error) {
       console.error("Sigsnup error:", error);
     }
@@ -147,7 +149,7 @@ useEffect(()=>{
             <CardFooter>
               <Button onClick={handleLoginSubmit} className="w-full">
                 {
-                  loginloading?<Loader2 className="animate-spin mr-2 h-4 w-4" />:" Log in"
+                  loginloading ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : " Log in"
                 }
               </Button>
             </CardFooter>
@@ -199,11 +201,11 @@ useEffect(()=>{
               </div>
               <Select onValueChange={getselectedValue}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selectt Role"/>
+                  <SelectValue placeholder="Select Role" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Student">Student</SelectItem>
-                   <SelectItem value="Teacher">Teacher</SelectItem>
+                  <SelectItem value="Teacher">Teacher</SelectItem>
                 </SelectContent>
               </Select>
               <div className="grid gap-3">
@@ -221,9 +223,9 @@ useEffect(()=>{
             <CardFooter>
               <Button onClick={handleSignupSubmit} className="w-full">
                 {
-                  registerloading?<Loader2 className="animate-spin mr-2 h-4 w-4" />:"Create account"
+                  registerloading ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : "Create account"
                 }
-             
+
               </Button>
             </CardFooter>
           </Card>

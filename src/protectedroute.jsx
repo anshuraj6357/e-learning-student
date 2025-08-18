@@ -31,13 +31,13 @@ export const Adminauthenticated = ({ children }) => {
   const { user, isAuthenticated } = useSelector(store => store.auth);
 
   if (!isAuthenticated) {
-    return <Navigate to='/login' />;   // 🔹 changed this condition
+    return <Navigate to='/login' />;  
   }
 
   if (user?.Role !== 'Student') {
     
   return children;
-     // 🔹 kept same, but added safe `?.`
+   
   }
     return <Navigate to='/' />;   
 };

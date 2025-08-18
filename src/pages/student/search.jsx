@@ -18,7 +18,7 @@ export function Search() {
          Search
         </button>
          </form>
-           <button className='bg-red-500 mt-4 ml-80'> Explore courses</button>
+           <button className='mt-4 ml-80'> Explore courses</button>
       </div>
     </div>
   );

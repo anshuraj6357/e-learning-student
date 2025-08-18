@@ -88,7 +88,7 @@ export function Navbar() {
                 <div className="flex items-center cursor-pointer">
                   <Avatar>
                     <AvatarImage
-                      src={userdata?.profile?.[0]?.photourl || photourl || "https://github.com/shadcn.png"}
+                      src={userdata?.profile?.photourl || photourl || "https://github.com/shadcn.png"}
                       alt="profile"
                     />
                     <AvatarFallback>
@@ -116,7 +116,7 @@ export function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 {
-                  userdata?.profile?.[0]?.Role === "Teacher" && (
+                  userdata?.profile?.Role === "Teacher" && (
                     <DropdownMenuItem>
                       <Link to='/admin/dashboard'> Dashboard</Link>
                     </DropdownMenuItem>

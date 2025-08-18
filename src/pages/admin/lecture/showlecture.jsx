@@ -1,18 +1,19 @@
 import React from 'react'
 
 
-import { Card,
-     CardHeader,
-      CardTitle,
-       CardDescription,
-        CardContent, 
-        CardFooter
-     } from "@/components/ui/card";
+import {
+    Card,
+    CardHeader,
+    CardTitle,
 
-export function Showlecture({  title, videourl, ispreview }) {
+    CardContent,
+
+} from "@/components/ui/card";
+
+export function Showlecture({ title, videourl }) {
     return (
         <div>
-            <Card  className="mb-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card className="mb-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <CardHeader>
                     <CardTitle className="text-lg font-semibold text-gray-900"><p>{title}</p></CardTitle>
                 </CardHeader>

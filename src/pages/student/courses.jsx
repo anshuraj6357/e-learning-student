@@ -1,24 +1,29 @@
 import { CourseCard } from '@/pages/structure/courseskeleton';
 import { NewSkeleton } from '@/pages/structure/skeleton';
-import { useGetCoursesQuery  } from '@/features/api/courseapi';
+import { useGetCoursesQuery,useAllpublishedcoursesQuery  } from '@/features/api/courseapi';
+
+
+
 import { useEffect } from 'react'
 export function Courses() {
   const { data, isLoading, isSuccess, error, refetch } = useGetCoursesQuery();
 
 
-  const publishedCourses = data?.course?.filter(course => course.isPublished) || [];
+   const { data:publisheddata, isLoading:publishedloading, isSuccess:publishedisSuccess, refetch:publishedrefetch } = useAllpublishedcoursesQuery();
 
+console.log("publisheddata",publisheddata);
 
 
   useEffect(() => {
     refetch();
-    if (!isSuccess) {
-          localStorage.removeItem("user");
-     console.log("success")
-        localStorage.removeItem("token");
-
-    }
+    
   }, []);
+
+
+
+if(publishedloading) <p> course detail loading</p>
+
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col items-center">
       <h2 className="text-3xl font-semibold mb-8 text-gray-900 text-center">
@@ -30,8 +35,8 @@ export function Courses() {
           <NewSkeleton />
         ) : (
           <div className="grid grid-cols-3 gap-6">
-            {data && data?.course?.length > 0 ? (
-              publishedCourses.map((courseidx, index) => (
+            {publisheddata && publisheddata?.published?.length > 0 ? (
+              publisheddata?.published?.map((courseidx, index) => (
 
                 <CourseCard
                   courseId={courseidx._id || index}

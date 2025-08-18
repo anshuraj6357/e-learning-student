@@ -146,7 +146,7 @@ const CourseDetails = () => {
 
                         <CardFooter className="flex justify-center p-4">
                             {
-                                userdatacheck?.profile?.[0]?.enrolledcourses.length>0 && userdatacheck?.profile?.[0]?.enrolledcourses.some(id=>id._id===`${courseId}`) ? (
+                                userdatacheck?.profile?.enrolledcourses.length>0 && userdatacheck?.profile?.enrolledcourses.some((data)=>data?._id===`${courseId}`) ? (
                                     <>
                                         <Button onClick={() => navigate(`/course-progress/${courseId}`)}> start learning</Button>
                                     </>

@@ -30,9 +30,9 @@ export function EditProfile() {
     photourl: null,
   });
 
- 
-  const { data, isLoading, refetch } = useLoadUserQuery();
-  const newdata = data?.profile?.[0]
+
+  const { data: newdata, isLoading, refetch } = useLoadUserQuery();
+  console.log("newdata", newdata?.profile?.username)
   const [
     UpdateUser,
     { data: userdata, isLoading: userisLoading, error, isSuccess },
@@ -44,7 +44,7 @@ export function EditProfile() {
       [e.target.name]: e.target.value,
     });
   };
- 
+
 
   const ChangefileHandler = (e) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -76,45 +76,45 @@ export function EditProfile() {
     if (error) {
       toast.error("Profile update failed");
     }
-  }, [data, error, isSuccess]);
+  }, [newdata, error,refetch, isSuccess]);
 
 
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-12 my-24">
-    
+
       <h1 className="font-extrabold text-4xl text-center md:text-left mb-16 text-gray-900 dark:text-white tracking-tight">
         Profile
       </h1>
 
-   
+
       <div className="flex flex-col md:flex-row items-center md:items-start gap-12 bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8">
-      
+
         <div className="flex justify-center md:justify-start">
           <Avatar className="h-36 w-36 md:h-44 md:w-44 ring-4 ring-indigo-500 shadow-md">
             <AvatarImage
-              src={newdata?.photourl || "https://github.com/shadcn.png"}
-              alt={newdata?.username || "profile"}
+              src={newdata?.profile?.photourl || "https://github.com/shadcn.png"}
+              alt={newdata?.profile?.username || "profile"}
             />
             <AvatarFallback className="bg-indigo-500 text-white text-2xl font-bold">
-              {newdata?.username?.charAt(0).toUpperCase() || "U"}
+              {newdata?.profile?.username?.charAt(0).toUpperCase() || "U"}
             </AvatarFallback>
           </Avatar>
         </div>
 
         <div className="flex flex-col space-y-8 w-full max-w-lg">
-    
+
           <div>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-200">Name:</h2>
             <p className="text-base text-gray-700 dark:text-gray-400 ml-4">
-              {newdata?.username || "Loading..."}
+              {newdata?.profile?.username || "Loading..."}
             </p>
           </div>
 
           <div>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-200">Email:</h2>
             <p className="text-base text-gray-700 dark:text-gray-400 ml-4">
-              {newdata?.email || "Loading..."}
+              {newdata?.profile?.email || "Loading..."}
             </p>
           </div>
 
@@ -125,7 +125,7 @@ export function EditProfile() {
               </Button>
             </DialogTrigger>
 
-         
+
             <DialogContent className="sm:max-w-[450px] rounded-2xl p-6">
               <form onSubmit={UpdateUSerHandler} encType="multipart/form-data">
                 <DialogHeader>
@@ -192,19 +192,19 @@ export function EditProfile() {
         </div>
       </div>
 
-    
+
       <div className="w-full mt-20">
         <h1 className="font-bold text-3xl mb-8 text-gray-900 dark:text-white">
           Courses You’re Enrolled In
         </h1>
 
-        {newdata?.enrolledcourses.length === 0 ? (
+        {newdata?.enrolledcourses?.length === 0 ? (
           <p className="text-gray-600 dark:text-gray-400 text-lg">
             You haven't enrolled in any courses yet.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {newdata?.enrolledcourses?.map((course, index) => (
+            {newdata?.profile?.enrolledcourses?.map((course, index) => (
               <CourseCard
                 key={course._id || index}
                 courseId={course._id}
