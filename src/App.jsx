@@ -3,7 +3,7 @@ import { Login } from "../src/pages/login.jsx";
 import { Navbar } from "./pages/navbar";
 // import { Search } from "./pages/student/search.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { MainLayout } from "./layout/MainLayout";
+import { MainLayout } from "@/layout/MainLayout";
 import { MyLearning } from "@/pages/student/mylearning"
 import { EditProfile } from '@/pages/student/editprofile'
 import { Sidebar } from '@/pages/admin/sidebar'
