@@ -15,7 +15,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { Skeleton } from "@/components/ui/skeleton"
+
 import {
   Tooltip,
   TooltipContent,
@@ -539,25 +539,7 @@ const SidebarMenuSkeleton = React.forwardRef(({ className, showIcon = false, ...
     return `${Math.floor(Math.random() * 40) + 50}%`;
   }, [])
 
-  return (
-    <div
-      ref={ref}
-      data-sidebar="menu-skeleton"
-      className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
-      {...props}>
-      {showIcon && (
-        <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />
-      )}
-      <Skeleton
-        className="h-4 max-w-[--skeleton-width] flex-1"
-        data-sidebar="menu-skeleton-text"
-        style={
-          {
-            "--skeleton-width": width
-          }
-        } />
-    </div>
-  );
+
 })
 SidebarMenuSkeleton.displayName = "SidebarMenuSkeleton"
 
