@@ -59,13 +59,13 @@ export function Editlecture() {
             toast.success('uploaded Succes')
             refetch()
         }
-        if(uploadvideo){
+        if (uploadvideo) {
             alert('please wait video is uploading')
         }
         if (error) {
             toast.failed('error  kya hai?')
         }
-    }, [refetch, uploadsuccess, error,uploadvideo])
+    }, [refetch, uploadsuccess, error, uploadvideo])
     useEffect(() => {
         if (isSuccess) {
             console.log("trigger 2")
@@ -96,7 +96,7 @@ export function Editlecture() {
                     setUploadProgress(Math.round((loaded * 100) / total));
                 },
             });
-     
+
             if (res?.data?.success) {
                 setVideoFile(res.data.uploadedfile);
                 toast.success(res?.data?.message);
@@ -114,10 +114,10 @@ export function Editlecture() {
 
     const changeHandler = (e) => {
         e.preventDefault();
-    
+
         EditcourseLecture({ isPreview, lectureTitle, videoinfo, courseId, lectureId })
     };
- 
+
     return (
         <div className="max-w-3xl mx-auto my-10">
             <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -167,17 +167,23 @@ export function Editlecture() {
                     </CardContent>
 
                     <CardFooter className="flex justify-end">
-                        <Button >
-                            {
-                                isLoading ?
-                                    <Loader2 className="animate-spin h-4 w-4 mr-2 inline-block" /> :
-
-                                    "  Upload Lecture"
-
-                            }
 
 
-                        </Button>
+                        <div className='flex justify-between gap-8'>
+                            <Button type='button' onClick={(e)=>navigate(`/admin/course/${courseId}/lectures`)}>Back</Button>
+                            <Button >
+                                {
+                                    isLoading ?
+                                        <Loader2 className="animate-spin h-4 w-4 mr-2 inline-block" /> :
+
+                                        "  Upload Lecture"
+
+                                }
+
+
+                            </Button>
+                        </div>
+
                     </CardFooter>
                 </form>
             </Card>

@@ -49,7 +49,7 @@ useEffect(() => {
                 <TableBody>
                     {data?.course?.map((course ,index) => (
                         <TableRow key={course._id || index}>
-                            <TableCell className="font-medium">{course.price || "N/A"}</TableCell>
+                            <TableCell className="font-medium">{course.CoursePrice || "N/A"}</TableCell>
                             <TableCell><Badge>{course.isPublished?"publish":"Draft"}</Badge></TableCell>
                             <TableCell>{course.CourseTitle || "N/A"}</TableCell>
                             <TableCell className="w-4 h-4 mr-1" onClick={()=>navigate(`${course._id }`)}><Edit/></TableCell>

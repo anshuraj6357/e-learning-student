@@ -65,7 +65,7 @@ useEffect(() => {
             <CardTitle className="text-lg">Active Users</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-extrabold text-gray-800">480</p>
+            <p className="text-3xl font-extrabold text-gray-800">N/A</p>
           </CardContent>
         </Card>
 

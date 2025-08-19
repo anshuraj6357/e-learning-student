@@ -104,12 +104,18 @@ const courseApi = createApi({
             query: () => ({
                 url: `/allpublished/courses`
             })
+        }),
+        Searchedcourse:builder.mutation({
+            query:(formdata)=>({
+                url:`searchedcourse?query=${formdata}`
+            })
         })
     }),
 
 });
 
 export const { useCreateCourseMutation,
+    useSearchedcourseMutation,
     useDeleteCoursesMutation,
     useAllpublishedcoursesQuery,
     useGetcpQuery,

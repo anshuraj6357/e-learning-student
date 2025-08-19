@@ -10,33 +10,27 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 
+
+
+
+
+
 export function CourseProgress() {
-
-
-
     const { courseId } = useParams();
     const { data: lecturedata, refetch } = useGetCourseByIdQuery(courseId);
     const course = lecturedata?.course?.Lectures[0];
     const getcurrlecture = course?._id || lecturedata?.course?.Lectures[0]?._id
-
-    console.log("currentLecture", getcurrlecture);
-
     const { data: useGetcpdata } = useGetcpQuery(courseId)
-    console.log("dummy", useGetcpdata)
     const lecturestatus = useGetcpdata?.cp?.lectureProgress || []
-    console.log("usegetcpdata", useGetcpdata?.cp?.lectureProgress)
     const [currentLecture, setCurrentLecture] = useState(getcurrlecture);
     const [openModules, setOpenModules] = useState('');
-
-
-
     const [CourseProgress] = useCourseProgressMutation();
 
 
     useEffect(() => {
         refetch()
-        console.log("currentLecture", currentLecture);
-    }, [])
+      
+    }, [refetch])
 
 
     const toggleModule = (moduleId) => {
@@ -86,7 +80,7 @@ export function CourseProgress() {
             </div>
 
             <div className="max-w-7xl mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Main Video & Info */}
+               
                 <div className="lg:col-span-2">
                     <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
                         {currentLecture?.videoUrl ? (
@@ -111,7 +105,7 @@ export function CourseProgress() {
                     </div>
                 </div>
 
-                {/* Sidebar - Modules & Lectures */}
+             
                 <div className="lg:col-span-1">
                     <div className="bg-white border rounded-lg shadow-sm p-4">
                         <h2 className="text-lg font-semibold mb-4">Course Content</h2>
@@ -126,7 +120,6 @@ export function CourseProgress() {
                                     ) : (
                                         <PlayCircle size={16} className='text-blue-500' />
                                     )}
-
                                     <button
                                         onClick={() => toggleModule(module._id)}
                                         className="flex justify-between items-center w-full text-left text-gray-800 font-medium py-2"
@@ -135,7 +128,6 @@ export function CourseProgress() {
                                         {openModules.includes(module._id) ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                                     </button>
                                 </div>
-
                                 {openModules.includes(module._id) && (
                                     <div className="ml-4 space-y-2">
                                         <div
@@ -146,11 +138,8 @@ export function CourseProgress() {
                                                     : "hover:bg-gray-50 hover:shadow-sm"
                                                 }`}
                                         >
-                                            {module.isPreview ? (
-                                                <PlayCircle size={16} className="text-blue-500" />
-                                            ) : (
-                                                <Lock size={16} className="text-gray-400" />
-                                            )}
+                                            <PlayCircle size={16} className="text-blue-500" />
+
                                             <span className="text-gray-700 text-sm truncate">{module.lectureTitle}</span>
                                         </div>
                                     </div>
@@ -160,7 +149,7 @@ export function CourseProgress() {
                     </div>
                 </div>
 
-                {/* Progress Card */}
+
                 <Card className="lg:col-span-3 mt-6">
                     <CardHeader>
                         <CardTitle>Progress</CardTitle>

@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardTitle, CardDescription, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TextEditor } from "@/pages/admin/course/textedit";
-import { useUpdateCourseMutation, useGetCourseByIdQuery, usePublishchangeMutation,useDeleteCoursesMutation } from '@/features/api/courseapi'
+import { useUpdateCourseMutation, useGetCourseByIdQuery, usePublishchangeMutation, useDeleteCoursesMutation } from '@/features/api/courseapi'
 import {
     Select,
     SelectGroup,
@@ -26,8 +26,8 @@ export function CourseTab() {
     const [getcoursedataloading, setgetcoursedataloading] = useState(false)
     const fetchedcourse = getcoursedata?.course
     const [Publishchange] = usePublishchangeMutation();
-const [DeleteCourses]=useDeleteCoursesMutation();
-    const [UpdateCourse, { data, isloading, isSuccess, error }] = useUpdateCourseMutation()
+    const [DeleteCourses] = useDeleteCoursesMutation();
+    const [UpdateCourse, { data, isLoading, isSuccess, error }] = useUpdateCourseMutation()
 
     const [formdata, setformdata] = useState({
         CourseTitle: '',
@@ -45,11 +45,11 @@ const [DeleteCourses]=useDeleteCoursesMutation();
         return tempDiv.textContent || tempDiv.innerText || "";
     };
 
-const removecoursedbyid=()=>{
-    console.log("courseId",courseId)
-     DeleteCourses(courseId)
-navigate('/admin/course')
-}
+    const removecoursedbyid = () => {
+        console.log("courseId", courseId)
+        DeleteCourses(courseId)
+        navigate('/admin/course')
+    }
 
 
     useEffect(() => {
@@ -64,9 +64,12 @@ navigate('/admin/course')
                 CourseThumbnail: '',
 
             })
+            if(isSuccess){
+                toast.success("uploaded successfully ")
+            }
 
         }
-    }, [getcoursedata])
+    }, [getcoursedata,isSuccess])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -243,7 +246,7 @@ navigate('/admin/course')
                                     onChange={(html) => {
                                         setformdata((prev) => ({
                                             ...prev,
-                                            Description: stripHtml(html) // ✅ stores plain text
+                                            Description: stripHtml(html)
                                         }));
                                     }}
                                 />
@@ -264,11 +267,22 @@ navigate('/admin/course')
                                     <SelectContent>
                                         <SelectGroup>
                                             <SelectLabel>Category</SelectLabel>
-                                            <SelectItem value="apple">Apple</SelectItem>
-                                            <SelectItem value="banana">Banana</SelectItem>
-                                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                                            <SelectItem value="grapes">Grapes</SelectItem>
-                                            <SelectItem value="pineapple">Pineapple</SelectItem>
+                                            <SelectItem value="Next-Js">Next.js</SelectItem>
+                                            <SelectItem value="React-Js">React.js</SelectItem>
+                                            <SelectItem value="Backend-Developer">Backend Developer</SelectItem>
+                                            <SelectItem value="Node-Js">Node.js</SelectItem>
+                                            <SelectItem value="Express-Js">Express.js</SelectItem>
+                                            <SelectItem value="MongoDB">MongoDB</SelectItem>
+                                            <SelectItem value="JavaScript">JavaScript</SelectItem>
+                                            <SelectItem value="TypeScript">TypeScript</SelectItem>
+                                            <SelectItem value="HTML-CSS">HTML & CSS</SelectItem>
+                                            <SelectItem value="Python">Python</SelectItem>
+                                            <SelectItem value="Django">Django</SelectItem>
+                                            <SelectItem value="Flask">Flask</SelectItem>
+                                            <SelectItem value="Machine-Learning">Machine Learning</SelectItem>
+                                            <SelectItem value="Data-Science">Data Science</SelectItem>
+                                            <SelectItem value="AWS">AWS</SelectItem>
+                                            <SelectItem value="DevOps">DevOps</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
@@ -317,15 +331,20 @@ navigate('/admin/course')
                                 className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                             />
                         </div>
-                        <Button>
-                            {
-                                isloading ? (
-                                    <>
-                                        <Loader2 className="animate-spin mr-2 h-4 w-4" >please wait</Loader2></>
+                        <div className='flex justify-between gap-8'>
+                            <Button type='button' onClick={() => navigate('/admin/course')}>Back</Button>
+                            <Button>
+                                {
+                                    isLoading ? (
+                                        <>
+                                            <Loader2 className="animate-spin mr-2 h-4 w-4" >please wait</Loader2></>
 
-                                ) : "Submit"
-                            }
-                        </Button>
+                                    ) : "Submit"
+                                }
+                            </Button>
+
+                        </div>
+
                     </CardContent>
                 </form>
             </Card>

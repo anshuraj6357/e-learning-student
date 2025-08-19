@@ -1,19 +1,29 @@
 import React from 'react';
-
-import { Outlet } from 'react-router-dom';
+import { toast } from 'react-hot-toast'
+import { Outlet, useLocation } from 'react-router-dom';
 import { Search } from "../pages/student/search.jsx";
 import { Courses } from "@/pages/student/courses";
-
+import { useEffect } from 'react'
 export function MainLayout() {
+    const location = useLocation();
 
- 
+    const searchdatagot = location?.state?.searchResults?.searchedcourse;
+
+    console.log("searchdatagot", searchdatagot)
+    useEffect(() => {
+          if (Array.isArray(searchdatagot) && searchdatagot.length === 0) {
+            toast.success("No course Found");
+        }
+    }, [searchdatagot]);
+
+
     return (
         <div>
-             <Search/>
-           
+            <Search />
+
             <div >
 
-                <Courses /> 
+                <Courses searchdatagot={searchdatagot} />
                 <Outlet />
             </div>
 
