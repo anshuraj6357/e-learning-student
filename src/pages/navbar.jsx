@@ -28,14 +28,9 @@ export function Navbar() {
 
   const { data: userdata, error } = useLoadUserQuery();
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
-  console.log("userdata", userdata)
 
-  console.log(error)
 
-  const redirect = () => {
-    console.log("click")
 
-  }
 
   useEffect(() => {
     if (error) {

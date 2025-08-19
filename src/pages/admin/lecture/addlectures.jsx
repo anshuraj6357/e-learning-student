@@ -22,7 +22,7 @@ export function Addlectures() {
     const [CreateLecture, { data: uploadlectures, isLoading, isSuccess, error }] = useCreateLectureMutation();
     const changeHandler = async (e) => {
         e.preventDefault();
-        console.log("Lecture Title:", lectureTitle);
+    
         CreateLecture({ formdata: { lectureTitle }, courseId });
 
     };
@@ -46,18 +46,6 @@ export function Addlectures() {
         }
 
     }, [isSuccess, error,refetch])
-
-
-
-
-
-
-
-
-
-     
-    console.log("loadlecturedata", loadlecturedata);
-
 
 
 

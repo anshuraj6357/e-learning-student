@@ -68,7 +68,7 @@ export function Editlecture() {
     }, [refetch, uploadsuccess, error, uploadvideo])
     useEffect(() => {
         if (isSuccess) {
-            console.log("trigger 2")
+      
             toast.success('Removed Succes')
             navigate(`/admin/course/${courseId}/lectures`)
         }

@@ -50,8 +50,7 @@ export function CourseProgress() {
 
     const completed = useGetcpdata?.cp?.completed;
     const percentProgress = useGetcpdata?.cp?.courseprogresscompleted || 0;
-    console.log("completed", completed);
-    console.log("percentProgress", percentProgress)
+
     if (!course) return <p>No lecture uploaded</p>;
 
     return (

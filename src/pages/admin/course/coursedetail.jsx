@@ -32,12 +32,11 @@ const CourseDetails = () => {
 
     const { data: purchasecoursedatacheck, isSuccess: purchasestatus } = useCheckcoursestatusQuery(courseId)
 
-    console.log(purchasecoursedatacheck)
 
     useEffect(() => { refetch() }, [])
 
     const { data: userdatacheck} = useLoadUserQuery();
-    console.log("user data", userdatacheck)
+
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Failed to load course details.</p>;
 

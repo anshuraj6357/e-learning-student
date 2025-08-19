@@ -48,7 +48,7 @@ const authApi = createApi({
         try {
           await queryFulfilled;
           localStorage.removeItem("user");
-          localStorage.removeItem("token"); // If you store token separately
+          localStorage.removeItem("token"); 
 
           dispatch(userLoggedout());
         } catch (error) {
@@ -63,7 +63,7 @@ const authApi = createApi({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          console.log("hii")
+        
           const result = await queryFulfilled;
           const userData = {
             user: result.data.existingUser,

@@ -21,7 +21,7 @@ export function CourseTab() {
     const navigate = useNavigate();
     const params = useParams();
     const courseId = params.courseId;
-    console.log("course id params", courseId)
+
     const { data: getcoursedata, refetch } = useGetCourseByIdQuery(courseId);
     const [getcoursedataloading, setgetcoursedataloading] = useState(false)
     const fetchedcourse = getcoursedata?.course
@@ -46,7 +46,7 @@ export function CourseTab() {
     };
 
     const removecoursedbyid = () => {
-        console.log("courseId", courseId)
+     
         DeleteCourses(courseId)
         navigate('/admin/course')
     }
@@ -80,7 +80,7 @@ export function CourseTab() {
     };
     const changeHandler = async (e) => {
         e.preventDefault();
-        console.log("Sending FormData:");
+
 
         const fd = new FormData();
         fd.append("CourseTitle", formdata.CourseTitle);
@@ -94,7 +94,6 @@ export function CourseTab() {
             fd.append("CourseThumbnail", formdata.CourseThumbnail); // must match multer field name
         }
 
-        console.log("Sending FormData:", isPublished);
 
         await UpdateCourse({ formdata: fd, courseId });
 
@@ -114,7 +113,7 @@ export function CourseTab() {
         try {
             setgetcoursedataloading(true);
             const result = await Publishchange({ courseId, query: action });
-            console.log('result.data', result.data)
+    
             if (result.data) {
                 await refetch();
                 setgetcoursedataloading(false);

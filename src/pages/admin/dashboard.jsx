@@ -17,7 +17,6 @@ export function Dashboard() {
   const { data: fetcheddata,refetch:refetchsold } = useFetchAllsoldedcoursesQuery();
 const {data:coursedata,refetch:refetchcourse}= useGetCoursesQuery();
 
-  console.log(fetcheddata);
 const [totalRevenue, setTotalRevenue] = useState(0);
 
 useEffect(() => {

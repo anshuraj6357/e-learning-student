@@ -13,6 +13,12 @@ import { useNavigate } from 'react-router-dom'
 import { Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useCreateCourseMutation } from '@/features/api/courseapi'
+
+
+
+
+
+
 export function Addcourses() {
     const [CourseTitle, setCoursetitle] = useState('');
     const [Category, setcategory] = useState('');
@@ -21,8 +27,7 @@ export function Addcourses() {
     const [CreateCourse, { data, isLoading: createcourseisloading, isSuccess }, error] = useCreateCourseMutation();
     const changehandler = async (e) => {
         e.preventDefault();
-        console.log("coursetitle", CourseTitle)
-        console.log("category", Category)
+
         try {
             const result = await CreateCourse({ CourseTitle, Category });
             console.log("your uploaded course", result)

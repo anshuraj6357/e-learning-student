@@ -9,7 +9,7 @@ export function MainLayout() {
 
     const searchdatagot = location?.state?.searchResults?.searchedcourse;
 
-    console.log("searchdatagot", searchdatagot)
+   
     useEffect(() => {
           if (Array.isArray(searchdatagot) && searchdatagot.length === 0) {
             toast.success("No course Found");

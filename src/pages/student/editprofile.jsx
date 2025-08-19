@@ -32,7 +32,7 @@ export function EditProfile() {
 
 
   const { data: newdata, isLoading, refetch } = useLoadUserQuery();
-  console.log("newdata", newdata?.profile?.username)
+
   const [
     UpdateUser,
     { data: userdata, isLoading: userisLoading, error, isSuccess },

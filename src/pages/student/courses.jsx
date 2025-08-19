@@ -4,26 +4,14 @@ import { useGetCoursesQuery, useAllpublishedcoursesQuery, useSearchedcourseMutat
 
 
 
-import { useEffect } from 'react'
+import { useState } from 'react'
 export function Courses({ searchdatagot }) {
+
 
   const { data, isLoading, isSuccess, error, refetch } = useGetCoursesQuery();
 
 
   const { data: publisheddata, isLoading: publishedloading, isSuccess: publishedisSuccess, refetch: publishedrefetch } = useAllpublishedcoursesQuery();
-
-  console.log("searchdatagot-courses", searchdatagot)
-
-
-  // useEffect(() => {
-  //   if (searchdatagot.length > 0) {
-  //     console.log('founded');
-  //   } else {
-  //     console.log('not founded');
-  //   }
-  // }, [searchdatagot]);
-
-
 
 
   if (publishedloading) return <p>Course detail loading...</p>;

@@ -3,10 +3,8 @@
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 export const Protectedroutes = ({ children }) => {
-  console.log("Protectedroutes mounted"); // on render
 
   const { isAuthenticated } = useSelector(store => store.auth);
-  console.log("isAuthenticated value:", isAuthenticated);
 
   if (!isAuthenticated) {
  
@@ -27,7 +25,7 @@ export const Authenticated = ({ children }) => {
 
 
 export const Adminauthenticated = ({ children }) => {
-  console.log("click")
+
   const { user, isAuthenticated } = useSelector(store => store.auth);
 
   if (!isAuthenticated) {

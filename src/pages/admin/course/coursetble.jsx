@@ -19,7 +19,6 @@ export function Coursetable() {
 
 
     const { data, isloading: dataloading, error: dataerror,refetch } = useGetCoursesQuery();
-console.log(data?.course?.isPublish)
 useEffect(() => {
   refetch(); // called once when component mounts
 }, [refetch]);
