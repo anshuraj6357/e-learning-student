@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-//  const USER_API = "http://localhost:3000/api/v1/course/";
- const USER_API = import.meta.env.VITE_REACT_APP_COURSEAPI;
+ const USER_API = "http://localhost:3000/api/v1/course/";
+//  const USER_API = import.meta.env.VITE_REACT_APP_COURSEAPI;
 
 
 const courseApi = createApi({
