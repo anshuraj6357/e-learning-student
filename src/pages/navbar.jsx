@@ -45,14 +45,14 @@ export function Navbar() {
     }
   }, [parsedUser]);
 
-  // ✅ Handle toast on logout
+  // Handle toast on logout
   useEffect(() => {
     if (isSuccess) {
       toast.success(data?.message || "Logout successful");
     }
   }, [isSuccess, data]);
 
-  // ✅ Logout handler
+  // Logout handler
   const logoutEventHandler = async () => {
     try {
       await logoutUser();

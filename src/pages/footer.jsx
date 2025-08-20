@@ -5,16 +5,16 @@ export  function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* About Section */}
+       
         <div>
-          <h2 className="text-white font-bold text-xl mb-4">YourSiteName</h2>
+          <h2 className="text-white font-bold text-xl mb-4">E-learning </h2>
           <p className="text-gray-400">
-            YourSiteName is dedicated to providing the best learning experience.
+            E-learning is dedicated to providing the best learning experience.
             Explore our courses and start your journey today!
           </p>
         </div>
 
-        {/* Quick Links */}
+        
         <div>
           <h2 className="text-white font-bold text-xl mb-4">Quick Links</h2>
           <ul className="space-y-2">
@@ -41,7 +41,6 @@ export  function Footer() {
           </ul>
         </div>
 
-        {/* Social & Contact */}
         <div>
           <h2 className="text-white font-bold text-xl mb-4">Connect with us</h2>
           <div className="flex space-x-4 mb-4">

@@ -2,37 +2,40 @@ import React from 'react';
 
 import { CourseCard } from '@/pages/structure/coursecard'
 
-
+import {useLoadUserQuery} from '@/features/api/authapi'
 
 export function MyLearning() {
+
+
+const {data} =useLoadUserQuery();
+
+console.log("data",data?.profile?.enrolledcourses)
+
+
+
+
+
     const isloadings = false;
-    const mylearningcourses = [];
     return (
         <div>
             <div> My Learning </div>
             <div>
-                {
-                    isloadings ?
-                      <p> page is loading..</p>:
-                        mylearningcourses.length == 0 ?
-                            (
-                                <p> you are not enrolled in any of the courses</p>
-                            ) :
-                            (
+                {data?.profile?.enrolledcourses?.length>0 ?(
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                                    {mylearningcourses.map((course, index) => (
+                                    { data?.profile?.enrolledcourses?.map((course, index) => (
                                         <CourseCard
                                             key={index}
-                                            image={course.image}
-                                            name={course.name}
-                                            description={course.description}
-                                            price={course.price}
+                                            image={course.CourseThumbnail}
+                                            name={course.CourseSubtitle}
+                                            description={course.Description}
+                                            price={course.CoursePrice}
                                             authorname={course.authorname}
-                                            level={course.level}
+                                            level={course.CourseLevel}
                                         />
                                     ))}
                                 </div>
-                            )}
+                            ):<p> you are not enrolled in any of the courses</p>
+                            }
 
 
             </div>

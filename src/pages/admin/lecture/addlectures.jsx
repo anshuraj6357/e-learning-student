@@ -67,7 +67,7 @@ export function Addlectures() {
              
                 <CardContent className="p-6 space-y-6">
                     <form onSubmit={changeHandler} className="space-y-6">
-                        {/* Lecture Title */}
+                      
                         <div className="flex flex-col">
                             <label className="mb-2 font-medium text-gray-700">
                                 Lecture Title

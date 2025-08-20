@@ -13,12 +13,12 @@ const authSlice = createSlice({
    userLoggedin: (state, action) => {
       state.user = action.payload.user;
       state.isAuthenticated = true;
-      // localStorage.setItem("user", JSON.stringify(action.payload.user)); // Save to localStorage
+      
     },
     userLoggedout : (state) => {
       state.user = null;
       state.isAuthenticated = false;
-      // localStorage.removeItem("user"); // Remove from localStorage
+
     },
     hydrateUser: (state, action) => {
       state.user = action.payload.user;

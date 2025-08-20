@@ -29,7 +29,6 @@ export function CourseCard({ courseId, image, name, price, authorname,coursename
             <CardContent className="p-4 flex flex-col gap-2">
                 <CardTitle className="text-lg font-semibold text-gray-900 truncate">{coursename}</CardTitle>
 
-                {/* Author + Level */}
                 <div className="flex  justify-between mt-2 mb-2">
                     <div className="flex items-center gap-2">
                         <Avatar className="w-8 h-8">
