@@ -76,7 +76,7 @@ export function EditProfile() {
     if (error) {
       toast.error("Profile update failed");
     }
-  }, [newdata, error,refetch, isSuccess]);
+  }, [newdata, error, refetch, isSuccess]);
 
 
 
@@ -204,16 +204,16 @@ export function EditProfile() {
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {newdata?.profile?.enrolledcourses?.map((course, index) => (
+            {newdata?.profile?.enrolledcourses?.map((courseidx, index) => (
               <CourseCard
-                key={course._id || index}
-                courseId={course._id}
-                image={course.CourseThumbnail}
-                description={course.Description}
-                price={course.CoursePrice}
-                coursename={course.CourseTitle}
-                level={course.CourseLevel}
-                className="w-full rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300 bg-white dark:bg-gray-800"
+                courseId={courseidx._id || index}
+                image={courseidx.CourseThumbnail}
+                name={courseidx.Createdby.username}
+                description={courseidx.Description}
+                price={courseidx.CoursePrice}
+                coursename={courseidx.CourseTitle}
+                level={courseidx.CourseLevel}
+                className="w-full rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"
               />
             ))}
           </div>

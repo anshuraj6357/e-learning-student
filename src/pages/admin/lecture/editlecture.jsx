@@ -86,7 +86,7 @@ export function Editlecture() {
         setMediaProgress(true);
 
         try {
-            const res = await axios.post("http://localhost:3000/api/v1/uploadmedia/lecture/videoupload", formData, {
+            const res = await axios.post(import.meta.env.VITE_REACT_APP_UPLOADVIDEOAPI, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     withcredentials: 'include'

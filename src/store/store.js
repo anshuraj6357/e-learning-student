@@ -13,36 +13,25 @@ export const appStore = configureStore({
     [purchaseApi.reducerPath]: purchaseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, courseApi.middleware,purchaseApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware, courseApi.middleware, purchaseApi.middleware),
 });
 
+const initializeUser = () => {
+  const storedUser = localStorage.getItem("user");
+  if (!storedUser) return { user: null, isAuthenticated: false };
 
-const storedUser = localStorage.getItem("user");
-
-if (storedUser) {
   try {
     const parsedUser = JSON.parse(storedUser);
-    console.log("parseduser", parsedUser)
-    appStore.dispatch(
-      hydrateUser({
-        user: parsedUser,
-        isAuthenticated: true,
-      })
-    );
+    const isValidUser = parsedUser && Object.keys(parsedUser).length > 0;
+    return {
+      user: isValidUser ? parsedUser : null,
+      isAuthenticated: isValidUser,
+    };
   } catch (err) {
     console.error("Failed to parse stored user:", err);
-    appStore.dispatch(
-      hydrateUser({
-        user: null,
-        isAuthenticated: false,
-      })
-    );
+    return { user: null, isAuthenticated: false };
   }
-} else {
-  appStore.dispatch(
-    hydrateUser({
-      user: null,
-      isAuthenticated: false,
-    })
-  );
-}
+};
+
+const initialUserState = initializeUser();
+appStore.dispatch(hydrateUser(initialUserState));

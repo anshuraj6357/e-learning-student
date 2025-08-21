@@ -1,6 +1,5 @@
-// src/components/Navbar.jsx
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import { DarkMode } from "../pages/darkmode";
@@ -18,48 +17,43 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "react-toastify";
 import { useLogoutUserMutation, useLoadUserQuery } from "@/features/api/authapi";
+import { userLoggedout } from "@/features/authSlice";
 
 export function Navbar() {
   const [photourl, setPhotourl] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { user, isAuthenticated } = useSelector((store) => store.auth);
-  const parsedUser = typeof user === "string" ? JSON.parse(user) : user;
 
-  const { data: userdata, error } = useLoadUserQuery();
-  const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
+  const { data: userdata, error } = useLoadUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
-
-
-
-  useEffect(() => {
-    if (error) {
-
-      navigate("/login");
-    }
-  }, [error, navigate]);
+  const [logoutUser, { isSuccess, data: logoutData }] = useLogoutUserMutation();
 
   useEffect(() => {
-    if (parsedUser?.[0]?.photourl) {
-      setPhotourl(parsedUser[0].photourl);
+    if (userdata?.profile?.photourl) {
+      setPhotourl(userdata.profile.photourl);
     }
-  }, [parsedUser]);
+  }, [userdata]);
 
-  // Handle toast on logout
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success(data?.message || "Logout successful");
-    }
-  }, [isSuccess, data]);
 
-  // Logout handler
+
   const logoutEventHandler = async () => {
     try {
       await logoutUser();
+
+      dispatch(userLoggedout());
+
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      window.location.href = "/login"; // full refresh ensures clean state
-    } catch (error) {
+  
+      window.location.href = "/login";
+            toast.success(logoutData?.message || "Logout successful");
+ 
+
+    } catch (err) {
       toast.error("Logout failed. Try again!");
     }
   };
@@ -67,11 +61,9 @@ export function Navbar() {
   return (
     <nav className="w-full border-b bg-blue-500 text-black dark:bg-gray-900 dark:text-white shadow">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        {/* Logo */}
         <div className="text-2xl font-bold tracking-wide">E-learning</div>
 
-        {/* Authenticated / Non-authenticated */}
-        {!isAuthenticated || !userdata?.success ? (
+        {!isAuthenticated ? (
           <Button variant="outline" className="flex items-center gap-2">
             <LogIn className="h-4 w-4" />
             <Link to="/login">Login</Link>
@@ -86,9 +78,7 @@ export function Navbar() {
                       src={userdata?.profile?.photourl || photourl || "https://github.com/shadcn.png"}
                       alt="profile"
                     />
-                    <AvatarFallback>
-                      {parsedUser?.username?.[0]?.toUpperCase() || "U"}
-                    </AvatarFallback>
+                    <AvatarFallback>{user?.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
                   </Avatar>
                 </div>
               </DropdownMenuTrigger>
@@ -110,13 +100,11 @@ export function Navbar() {
                   <Link to="/">Home</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
-                {
-                  userdata?.profile?.Role === "Teacher" && (
-                    <DropdownMenuItem>
-                      <Link to='/admin/dashboard'> Dashboard</Link>
-                    </DropdownMenuItem>
-                  )
-                }
+                {userdata?.profile?.Role === "Teacher" && (
+                  <DropdownMenuItem>
+                    <Link to="/admin/dashboard">Dashboard</Link>
+                  </DropdownMenuItem>
+                )}
 
                 <DropdownMenuItem onClick={logoutEventHandler}>
                   Log out

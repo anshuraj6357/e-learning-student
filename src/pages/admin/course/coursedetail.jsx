@@ -35,7 +35,7 @@ const CourseDetails = () => {
 
     useEffect(() => { refetch() }, [])
 
-    const { data: userdatacheck} = useLoadUserQuery();
+    const { data: userdatacheck } = useLoadUserQuery();
 
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Failed to load course details.</p>;
@@ -144,14 +144,33 @@ const CourseDetails = () => {
 
 
                         <CardFooter className="flex justify-center p-4">
-                            {
-                                userdatacheck?.profile?.enrolledcourses.length>0 && userdatacheck?.profile?.enrolledcourses.some((data)=>data?._id===`${courseId}`) ? (
-                                    <>
-                                        <Button onClick={() => navigate(`/course-progress/${courseId}`)}> start learning</Button>
-                                    </>
-                                ) :
-                                    <BuyCourseButton courseId={courseId} />
-                            }
+
+                            <div className="flex flex-wrap justify-between items-center gap-4 mt-6">
+                                {/* Back Button */}
+                                <Button
+                                    onClick={() => navigate('/')}
+                                    className="px-6 py-2 rounded-xl bg-gray-200 text-gray-800 hover:bg-gray-300 transition duration-200"
+                                >
+                                    Back
+                                </Button>
+
+                                {/* Conditional Button */}
+                                {userdatacheck?.profile?.enrolledcourses?.length > 0 &&
+                                    userdatacheck?.profile?.enrolledcourses.some((data) => data?._id === `${courseId}`) ? (
+                                    <Button
+                                        onClick={() => navigate(`/course-progress/${courseId}`)}
+                                        className="px-6 py-2 rounded-xl bg-green-600 text-white hover:bg-green-700 transition duration-200 shadow-md"
+                                    >
+                                        Start Learning
+                                    </Button>
+                                ) : (
+                                    <BuyCourseButton
+                                        courseId={courseId}
+                                        className="px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition duration-200 shadow-md"
+                                    />
+                                )}
+                            </div>
+
 
                         </CardFooter>
                     </Card>

@@ -1,94 +1,68 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { userLoggedin, userLoggedout } from '@/features/authSlice';
 
-// const USER_API = "http://localhost:3000/api/v1/user/";
-
- const USER_API = import.meta.env.VITE_REACT_APP_AUTHAPI;
+const USER_API = import.meta.env.VITE_REACT_APP_AUTHAPI;
 
 const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: USER_API,
-    credentials: 'include', // send cookies
+    credentials: 'include',
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation({
-      query: (formdata) => ({
-        url: "register",
-        method: "POST",
-        body: formdata,
-      }),
+      query: (formdata) => ({ url: "register", method: "POST", body: formdata }),
     }),
     loginUser: builder.mutation({
-      query: (formdata) => ({
-        url: "login",
-        method: "POST",
-        body: formdata,
-      }),
+      query: (formdata) => ({ url: "login", method: "POST", body: formdata }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          const userData = {
-            user: result.data.existingUser,
-            isAuthenticated: true,
-          };
+          dispatch(userLoggedin({ user: result.data.existingUser }));
           localStorage.setItem("user", JSON.stringify(result.data.existingUser));
-          dispatch(userLoggedin(userData)); 
-        } catch (error) {
-          console.log("login error:", error);
+        } catch (err) {
+          console.log("login error:", err);
         }
-      }
+      },
     }),
     logoutUser: builder.mutation({
-      query: () => ({
-        url: "logout",
-        method: "GET",
-      }),
+      query: () => ({ url: "logout", method: "GET" }),
       async onQueryStarted(_, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
-          localStorage.removeItem("user");
-          localStorage.removeItem("token"); 
-
           dispatch(userLoggedout());
-        } catch (error) {
-          console.log("logout error:", error);
+          dispatch(authApi.util.resetApiState()); 
+        } catch (err) {
+          console.log("logout error:", err);
         }
       },
     }),
     loadUser: builder.query({
-      query: () => ({
-        url: "profile",
-        method: "GET",
-      }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      query: () => ({ url: "profile", method: "GET" }),
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
         try {
-        
           const result = await queryFulfilled;
-          const userData = {
-            user: result.data.existingUser,
-            isAuthenticated: true,
-          };
-          dispatch(userLoggedin(userData));
-          localStorage.setItem("user", JSON.stringify(result.data.profile));
-        } catch (error) {
-          dispatch(userLoggedin({ user: null, isAuthenticated: false }));
+          if (result.data?.profile) {
+            dispatch(userLoggedin({ user: result.data.profile }));
+          } else {
+            dispatch(userLoggedout());
+          }
+        } catch {
+          dispatch(userLoggedout());
         }
-      }
+      },
     }),
     updateUser: builder.mutation({
-      query: (formdata) => ({
-        url: "profile/update",
-        method: "PUT",
-        body: formdata,
-      }), async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      query: (formdata) => ({ url: "profile/update", method: "PUT", body: formdata }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          dispatch(userLoggedin({ user: result.data.user }));
           localStorage.setItem("user", JSON.stringify(result.data.user));
-        } catch (error) {
-          console.log("login error:", error);
+        } catch (err) {
+          console.log("update user error:", err);
         }
-      }
+      },
     }),
   }),
 });
@@ -98,7 +72,7 @@ export const {
   useLogoutUserMutation,
   useLoginUserMutation,
   useLoadUserQuery,
-  useUpdateUserMutation
+  useUpdateUserMutation,
 } = authApi;
 
 export default authApi;

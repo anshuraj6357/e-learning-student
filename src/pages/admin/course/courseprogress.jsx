@@ -59,8 +59,8 @@ export function CourseProgress() {
             <div className="bg-white shadow-sm border-b sticky top-0 z-10">
                 <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
                     <div className="flex items-center gap-3">
-                        <Link to="/courses" className="flex items-center gap-1 text-blue-600 hover:underline">
-                            <ArrowLeft size={18} /> Back to Courses
+                        <Link to={`/course-details/${courseId}`} className="flex items-center gap-1 text-blue-600 hover:underline">
+                            <ArrowLeft size={18}  /> Back to Courses
                         </Link>
                         <h1 className="text-lg font-semibold">{course.CourseTitle}</h1>
                     </div>
