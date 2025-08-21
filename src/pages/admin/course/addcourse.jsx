@@ -108,7 +108,7 @@ export function Addcourses() {
                                 </SelectContent>
                             </Select>
                         </div>
-                        {/* Submit Button */}
+                      
                         <div className="flex justify-end">
                             <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200">
                                 {
@@ -121,9 +121,7 @@ export function Addcourses() {
                                         )
                                         :
                                         "  Add Course"
-
                                 }
-
                             </button>
                         </div>
                     </div>

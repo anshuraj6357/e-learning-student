@@ -146,7 +146,7 @@ const CourseDetails = () => {
                         <CardFooter className="flex justify-center p-4">
 
                             <div className="flex flex-wrap justify-between items-center gap-4 mt-6">
-                                {/* Back Button */}
+                           
                                 <Button
                                     onClick={() => navigate('/')}
                                     className="px-6 py-2 rounded-xl bg-gray-200 text-gray-800 hover:bg-gray-300 transition duration-200"
@@ -154,7 +154,7 @@ const CourseDetails = () => {
                                     Back
                                 </Button>
 
-                                {/* Conditional Button */}
+                           
                                 {userdatacheck?.profile?.enrolledcourses?.length > 0 &&
                                     userdatacheck?.profile?.enrolledcourses.some((data) => data?._id === `${courseId}`) ? (
                                     <Button

@@ -46,7 +46,7 @@ export function CourseTab() {
     };
 
     const removecoursedbyid = () => {
-     
+
         DeleteCourses(courseId)
         navigate('/admin/course')
     }
@@ -64,12 +64,13 @@ export function CourseTab() {
                 CourseThumbnail: '',
 
             })
-            if(isSuccess){
-                toast.success("uploaded successfully ")
-            }
+        }
+        if (isSuccess) {
+            toast.success("uploaded successfully ")
+
 
         }
-    }, [getcoursedata,isSuccess])
+    }, [getcoursedata, isSuccess])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -113,7 +114,7 @@ export function CourseTab() {
         try {
             setgetcoursedataloading(true);
             const result = await Publishchange({ courseId, query: action });
-    
+
             if (result.data) {
                 await refetch();
                 setgetcoursedataloading(false);
@@ -261,7 +262,8 @@ export function CourseTab() {
                                 <label className={labelClass}>Category</label>
                                 <Select onValueChange={categoryvalue}>
                                     <SelectTrigger className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                        <SelectValue placeholder="Select category" />
+                                        <SelectValue value={formdata.Category} placeholder="Select category" />
+
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
@@ -291,7 +293,8 @@ export function CourseTab() {
                                 <label className={labelClass}>Course Level</label>
                                 <Select onValueChange={coursevalue}>
                                     <SelectTrigger className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                        <SelectValue placeholder="Select level" />
+                                        <SelectValue value={formdata.CourseLevel} placeholder="Select level" />
+
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
