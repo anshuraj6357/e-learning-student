@@ -115,7 +115,7 @@ export function CourseTab() {
             setgetcoursedataloading(true);
             const result = await Publishchange({ courseId, query: action });
 
-            if (result.data) {
+            if (result?.data) {
                 await refetch();
                 setgetcoursedataloading(false);
                 toast.success(result.data.message)
@@ -160,17 +160,16 @@ export function CourseTab() {
             <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-xl">
                 <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-6">
                     <div className="p-6 bg-white rounded-lg shadow-md space-y-4">
-                        {/* Title */}
+                     
                         <CardTitle className="text-2xl font-bold text-gray-900">
                             Basic Course Information
                         </CardTitle>
 
-                        {/* Description */}
                         <CardDescription className="text-gray-600">
                             Make changes to your course here. Click publish when you are done.
                         </CardDescription>
 
-                        {/* Navigation / Action */}
+                       
                         <div>
                             <button
                                 className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
@@ -194,9 +193,9 @@ export function CourseTab() {
 
                         >{
                                 getcoursedataloading ? (
-                                    <>
+                                    
                                         <Loader2 className="animate-spin mr-2 h-4 w-4" />
-                                    </>
+                                    
                                 ) : getcoursedata?.course?.isPublished ? "Unpublish" : "Publish"}
                         </Button>
 
